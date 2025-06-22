@@ -1,4 +1,4 @@
-/* Reset some defaults */
+
 * {
   box-sizing: border-box;
 }
@@ -32,7 +32,7 @@ h2, h3 {
 table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 12px; /* vertical spacing between rows */
+  border-spacing: 0 12px; 
   margin-bottom: 30px;
   border-radius: 12px;
   overflow: hidden;
@@ -68,7 +68,7 @@ tbody tr:hover {
 tbody td {
   padding: 15px 20px;
   vertical-align: middle;
-  border: none; /* remove default border */
+  border: none;
 }
 
 
