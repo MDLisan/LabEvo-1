@@ -1,35 +1,37 @@
-$('#addBtn').click(function () {
-  const name = $('#studentName').val();
-  const id = $('#studentID').val();
-  const marks = parseFloat($('#marks').val());
+$(document).ready(function () {
 
-  const existingRow = $(`#studentTable tbody tr[data-id="${id}"]`);
+  $('#addBtn').click(function () {
+    const name = $('#studentName').val();
+    const id = $('#studentID').val();
+    const marks = parseFloat($('#marks').val());
 
-  if (existingRow.length > 0) {
-    alert('Student ID already exists. Please use a unique ID.');
-    return;
-  }
+    const existingRow = $(`#studentTable tbody tr[data-id="${id}"]`);
 
-  if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
-    $('#studentTable tbody').append(`
-      <tr data-id="${id}">
-        <td>${name}</td>
-        <td>${id}</td>
-        <td>${marks}</td>
-      </tr>
-    `);
-
-    $('#studentName, #studentID, #marks').val('');
-  } else {
-    if (isNaN(marks) || marks < 0 || marks > 100) {
-      alert('Please enter valid marks between 0 and 100.');
-    } else {
-      alert('Please fill all fields!');
+    if (existingRow.length > 0) {
+      alert('Student ID already exists. Please use a unique ID.');
+      return;
     }
-  }
-});
 
+    if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
+      $('#studentTable tbody').append(`
+        <tr data-id="${id}">
+          <td>${name}</td>
+          <td>${id}</td>
+          <td>${marks}</td>
+        </tr>
+      `);
 
+      $('#studentName, #studentID, #marks').val('');
+    } else {
+      if (isNaN(marks) || marks < 0 || marks > 100) {
+        alert('Please enter valid marks between 0 and 100.');
+      } else {
+        alert('Please fill all fields!');
+      }
+    }
+  });
+
+ 
   $('#modifyBtn').click(function () {
     const searchId = $('#searchId').val();
     const row = $(`#studentTable tbody tr[data-id="${searchId}"]`);
@@ -42,6 +44,7 @@ $('#addBtn').click(function () {
       alert('ID not found!');
     }
   });
+
 
   $('#updateBtn').click(function () {
     const updatedName = $('#editName').val();
