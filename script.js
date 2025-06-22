@@ -1,5 +1,33 @@
 $(document).ready(function () {
 
+  function loadStudents() {
+    const students = JSON.parse(localStorage.getItem('students')) || [];
+    $('#studentTable tbody').empty(); 
+    students.forEach(student => {
+      $('#studentTable tbody').append(`
+        <tr data-id="${student.id}">
+          <td>${student.name}</td>
+          <td>${student.id}</td>
+          <td>${student.marks}</td>
+        </tr>
+      `);
+    });
+  }
+
+  function saveStudents() {
+    const students = [];
+    $('#studentTable tbody tr').each(function () {
+      const name = $(this).find('td:eq(0)').text();
+      const id = $(this).data('id');
+      const marks = parseFloat($(this).find('td:eq(2)').text());
+      students.push({ name, id, marks });
+    });
+    localStorage.setItem('students', JSON.stringify(students));
+  }
+
+
+  loadStudents();
+
   $('#addBtn').click(function () {
     const name = $('#studentName').val();
     const id = $('#studentID').val();
@@ -21,6 +49,7 @@ $(document).ready(function () {
         </tr>
       `);
 
+      saveStudents();
       $('#studentName, #studentID, #marks').val('');
     } else {
       if (isNaN(marks) || marks < 0 || marks > 100) {
@@ -31,7 +60,6 @@ $(document).ready(function () {
     }
   });
 
- 
   $('#modifyBtn').click(function () {
     const searchId = $('#searchId').val();
     const row = $(`#studentTable tbody tr[data-id="${searchId}"]`);
@@ -44,7 +72,6 @@ $(document).ready(function () {
       alert('ID not found!');
     }
   });
-
 
   $('#updateBtn').click(function () {
     const updatedName = $('#editName').val();
@@ -60,6 +87,7 @@ $(document).ready(function () {
     row.find('td:eq(0)').text(updatedName);
     row.find('td:eq(2)').text(updatedMarks);
 
+    saveStudents(); 
     $('#popup').hide();
   });
 });
