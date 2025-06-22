@@ -2,9 +2,9 @@ $(document).ready(function () {
   $('#addBtn').click(function () {
     const name = $('#name').val();
     const id = $('#id').val();
-    const marks = $('#marks').val();
+    const marks = parseFloat($('#marks').val()); // convert to number
 
-    if (name && id && marks) {
+    if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
       $('#studentTable tbody').append(`
         <tr data-id="${id}">
           <td>${name}</td>
@@ -15,7 +15,11 @@ $(document).ready(function () {
 
       $('#name, #id, #marks').val('');
     } else {
-      alert('Please fill all fields!');
+      if (isNaN(marks) || marks < 0 || marks > 100) {
+        alert('Please enter valid marks between 0 and 100.');
+      } else {
+        alert('Please fill all fields!');
+      }
     }
   });
 
@@ -34,8 +38,13 @@ $(document).ready(function () {
 
   $('#updateBtn').click(function () {
     const updatedName = $('#editName').val();
-    const updatedMarks = $('#editMarks').val();
+    const updatedMarks = parseFloat($('#editMarks').val());
     const id = $('#popup').data('id');
+
+    if (!updatedName || isNaN(updatedMarks) || updatedMarks < 0 || updatedMarks > 100) {
+      alert('Please provide valid name and marks between 0 and 100.');
+      return;
+    }
 
     const row = $(`#studentTable tbody tr[data-id="${id}"]`);
     row.find('td:eq(0)').text(updatedName);
