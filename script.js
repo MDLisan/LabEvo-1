@@ -1,28 +1,34 @@
-$(document).ready(function () {
-  $('#addBtn').click(function () {
-    const name = $('#studentName').val();
-    const id = $('#studentID').val();
-    const marks = parseFloat($('#marks').val());
+$('#addBtn').click(function () {
+  const name = $('#studentName').val();
+  const id = $('#studentID').val();
+  const marks = parseFloat($('#marks').val());
 
-    if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
-      $('#studentTable tbody').append(`
-        <tr data-id="${id}">
-          <td>${name}</td>
-          <td>${id}</td>
-          <td>${marks}</td>
-        </tr>
-      `);
+  const existingRow = $(`#studentTable tbody tr[data-id="${id}"]`);
 
+  if (existingRow.length > 0) {
+    alert('Student ID already exists. Please use a unique ID.');
+    return;
+  }
 
-      $('#name, #id, #marks').val('');
+  if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
+    $('#studentTable tbody').append(`
+      <tr data-id="${id}">
+        <td>${name}</td>
+        <td>${id}</td>
+        <td>${marks}</td>
+      </tr>
+    `);
+
+    $('#studentName, #studentID, #marks').val('');
+  } else {
+    if (isNaN(marks) || marks < 0 || marks > 100) {
+      alert('Please enter valid marks between 0 and 100.');
     } else {
-      if (isNaN(marks) || marks < 0 || marks > 100) {
-        alert('Please enter valid marks between 0 and 100.');
-      } else {
-        alert('Please fill all fields!');
-      }
+      alert('Please fill all fields!');
     }
-  });
+  }
+});
+
 
   $('#modifyBtn').click(function () {
     const searchId = $('#searchId').val();
