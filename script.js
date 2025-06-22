@@ -1,8 +1,8 @@
 $(document).ready(function () {
   $('#addBtn').click(function () {
-    const name = $('#name').val();
-    const id = $('#id').val();
-    const marks = parseFloat($('#marks').val()); // convert to number
+    const name = $('#studentName').val();
+    const id = $('#studentID').val();
+    const marks = parseFloat($('#marks').val());
 
     if (name && id && !isNaN(marks) && marks >= 0 && marks <= 100) {
       $('#studentTable tbody').append(`
@@ -12,6 +12,7 @@ $(document).ready(function () {
           <td>${marks}</td>
         </tr>
       `);
+
 
       $('#name, #id, #marks').val('');
     } else {
